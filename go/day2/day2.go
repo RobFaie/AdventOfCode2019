@@ -10,33 +10,33 @@ import (
 )
 
 func tests() {
-	t1 := lib.RunIntcode([]int64{1, 0, 0, 3, 99})
+	t1 := lib.RunIntcode([]int{1, 0, 0, 3, 99})
 	// fmt.Printf("%s", t1)
 	if t1[3] != 2 {
 		fmt.Printf("test t1 failed! Expected 2 but got %d\n", t1[3])
 	}
 
-	t2 := lib.RunIntcode([]int64{1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50})
+	t2 := lib.RunIntcode([]int{1, 9, 10, 3, 2, 3, 11, 0, 99, 30, 40, 50})
 	if t2[0] != 3500 {
 		fmt.Printf("test t2 failed! Expected 3500 but got %d\n", t2[0])
 	}
 
-	t3 := lib.RunIntcode([]int64{1, 0, 0, 0, 99})
+	t3 := lib.RunIntcode([]int{1, 0, 0, 0, 99})
 	if t3[0] != 2 {
 		fmt.Printf("test t3 failed! Expected 2 but got %d\n", t3[0])
 	}
 
-	t4 := lib.RunIntcode([]int64{2, 3, 0, 3, 99})
+	t4 := lib.RunIntcode([]int{2, 3, 0, 3, 99})
 	if t4[3] != 6 {
 		fmt.Printf("test t4 failed! Expected 6 but got %d\n", t4[3])
 	}
 
-	t5 := lib.RunIntcode([]int64{2, 4, 4, 5, 99, 0})
+	t5 := lib.RunIntcode([]int{2, 4, 4, 5, 99, 0})
 	if t5[5] != 9801 {
 		fmt.Printf("test t5 failed! Expected 9801 but got %d\n", t5[5])
 	}
 
-	t6 := lib.RunIntcode([]int64{1, 1, 1, 4, 99, 5, 6, 0, 99})
+	t6 := lib.RunIntcode([]int{1, 1, 1, 4, 99, 5, 6, 0, 99})
 	if t6[0] != 30 {
 		fmt.Printf("test t6 failed! Expected 30 but got %d\n", t6[0])
 	}
@@ -50,9 +50,10 @@ func part1() {
 	}
 
 	strs := strings.Split(string(raw), ",")
-	data := make([]int64, len(strs))
+	data := make([]int, len(strs))
 	for i := range data {
-		data[i], _ = strconv.ParseInt(strs[i], 10, 64)
+		d, _ := strconv.ParseInt(strs[i], 10, 32)
+		data[i] = int(d)
 	}
 
 	data[1] = 12
@@ -73,13 +74,14 @@ func part2() {
 	for i := 0; i < 100; i++ {
 		for j := 0; j < 100; j++ {
 
-			data := make([]int64, len(strs))
+			data := make([]int, len(strs))
 			for i := range data {
-				data[i], _ = strconv.ParseInt(strs[i], 10, 64)
+				d, _ := strconv.ParseInt(strs[i], 10, 32)
+				data[i] = int(d)
 			}
 
-			data[1] = int64(i)
-			data[2] = int64(j)
+			data[1] = int(i)
+			data[2] = int(j)
 
 			data = lib.RunIntcode(data)
 

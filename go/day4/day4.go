@@ -37,7 +37,7 @@ func part2() {
 				(s[3] == s[4] && s[2] != s[3] && s[4] != s[5]) ||
 				(s[4] == s[5] && s[3] != s[4]) {
 				total++
-				fmt.Println(s)
+				// fmt.Println(s)
 			}
 		}
 	}
